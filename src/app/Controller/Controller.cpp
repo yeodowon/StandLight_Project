@@ -26,7 +26,7 @@ void Controller::updateEvent(std::string strBtn)
     {
         clockService->updateEvent();
     }
-    
+   
 }
 
 void Controller::updateTempHumid(DHT_Data dhtData)

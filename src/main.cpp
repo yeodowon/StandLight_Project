@@ -15,6 +15,7 @@
 #include "TempHumidService.h"
 #include "TempHumidView.h"
 #include "UltraSonic.h"
+#include "Motor.h"
 
 int main()
 {
@@ -22,6 +23,10 @@ int main()
 
     Button modeButton(27);
     Button powerButton(28);
+    Button motorButton(29);
+    Button timerButton(17);
+    Button runstopButton(27);
+    Button resetButton(22);
     ClockCheck clockCheck;
     Led led1(21);
     Led led2(22);
@@ -31,20 +36,25 @@ int main()
     DHT11 dht(7);
     LCD lcd(new I2C("/dev/i2c-1", 0x26));
     UltraSonic ultraSonic(5, 4);
+    Motor motor(26);
+    
     
     View view(&led1, &led2, &led3, &led4, &led5, &lcd);
     TempHumidView tempHumidView(&lcd);
     ClockView clockView(&lcd);
+
     Service service(&view);
     ClockService clockSerivce(&clockView);
     TempHumidService tempHumidService(&tempHumidView);
+    
     Controller control(&service, &clockSerivce, &tempHumidService);
-    Listener listener(&modeButton, &powerButton, &control, &clockCheck, &dht, &ultraSonic);
+    Listener listener(&modeButton, &powerButton, &control, &clockCheck, &dht, &ultraSonic, &motor);
     
     while (1)
     {
         listener.checkEvent();
         view.lightView();
+        view.lcdView();
         
         delay(10);
     }

@@ -31,7 +31,9 @@ public:
     void lightOn_3();
     void lightOn_4();
     void lightOn_5();
-    void temp_Warning();
+    
+    void lcdView();
+    void lcdDisplay();
    
 };
 

@@ -20,6 +20,7 @@ public:
     Button(int pin);
     virtual ~Button();
     int getState();
+    int motorState();
 
 };
 

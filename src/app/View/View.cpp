@@ -49,11 +49,6 @@ void View::lightView()
 
 void View::lightOn_1()
 {
-    char buff[30]= {0,};
-    sprintf(buff, "Light 1  ");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOn();
-
     light1->On();
     light2->Off();
     light3->Off();
@@ -63,11 +58,6 @@ void View::lightOn_1()
 
 void View::lightOn_2()
 {
-    char buff[30];
-    sprintf(buff, "Light 2  ");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOn();
-
     light1->On();
     light2->On();
     light3->Off();
@@ -77,11 +67,6 @@ void View::lightOn_2()
 
 void View::lightOn_3()
 {
-    char buff[30];
-    sprintf(buff, "Light 3  ");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOn();
-
     light1->On();
     light2->On();
     light3->On();
@@ -91,11 +76,6 @@ void View::lightOn_3()
 
 void View::lightOn_4()
 {
-    char buff[30];
-    sprintf(buff, "Light 4  ");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOn();
-
     light1->On();
     light2->On();
     light3->On();
@@ -105,11 +85,6 @@ void View::lightOn_4()
 
 void View::lightOn_5()
 {
-    char buff[30];
-    sprintf(buff, "Light 5  ");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOn();
-
     light1->On();
     light2->On();
     light3->On();
@@ -119,11 +94,6 @@ void View::lightOn_5()
 
 void View::lightOff()
 {
-    char buff[30];
-    sprintf(buff, "Light Off");
-    lcd->WriteStringXY(0, 0, buff);
-    lcd->backLightOff();
-
     light1->Off();
     light2->Off();
     light3->Off();
@@ -131,3 +101,44 @@ void View::lightOff()
     light5->Off();
 }
 
+void View::lcdDisplay()
+{
+    char buff[30];
+    sprintf(buff, "Light:%d", lightState);
+    lcd->WriteStringXY(0, 0, buff);
+}
+
+void View::lcdView()
+{
+    switch (lightState)
+    {
+    case LIGHT_OFF:
+        lcdDisplay();
+        lcd->backLightOff();
+        break;
+
+    case LIGHT_1:
+        lcdDisplay();
+        lcd->backLightOn();
+        break;
+
+    case LIGHT_2:
+        lcdDisplay();
+        break;
+
+    case LIGHT_3:
+        lcdDisplay();
+
+        break;
+
+    case LIGHT_4:
+        lcdDisplay();
+
+        break;
+
+    case LIGHT_5:
+        lcdDisplay();
+
+        break;
+    }
+}
