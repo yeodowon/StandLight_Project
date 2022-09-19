@@ -7,8 +7,8 @@ Service::Service(View *viewer)
 {
     view = viewer;
     lightState = LIGHT_OFF;
-    bDistanceLight = false;
-    distanceErrorCounter = 0;
+    distanceChk = false;
+    distance_Chk_Cnt = 0;
 }
 
 Service::~Service()
@@ -33,11 +33,11 @@ void Service::updateState(std::string strState)
             lightState = LIGHT_2;
         }
         if (strState == "powerButton")
-        {  
+        {
             lightState = LIGHT_OFF;
         }
         view->setState(lightState);
-        if (bDistanceLight == true)
+        if (distanceChk == true)
         {
             view->setState(lightState);
         }
@@ -57,7 +57,7 @@ void Service::updateState(std::string strState)
             lightState = LIGHT_OFF;
         }
         view->setState(lightState);
-        if (bDistanceLight == true)
+        if (distanceChk == true)
         {
             view->setState(lightState);
         }
@@ -77,7 +77,7 @@ void Service::updateState(std::string strState)
             lightState = LIGHT_OFF;
         }
         view->setState(lightState);
-        if (bDistanceLight == true)
+        if (distanceChk == true)
         {
             view->setState(lightState);
         }
@@ -97,7 +97,7 @@ void Service::updateState(std::string strState)
             lightState = LIGHT_OFF;
         }
         view->setState(lightState);
-        if (bDistanceLight == true)
+        if (distanceChk == true)
         {
             view->setState(lightState);
         }
@@ -117,7 +117,7 @@ void Service::updateState(std::string strState)
             lightState = LIGHT_OFF;
         }
         view->setState(lightState);
-        if (bDistanceLight == true)
+        if (distanceChk == true)
         {
             view->setState(lightState);
         }
@@ -134,18 +134,20 @@ void Service::updateDistance(int distance)
 {
     cout << "distance : " << distance << endl;
 
-    if (distance < 0) // Light off
+    if (distance < 0 || distance > 50) // distance away Light off
     {
-        distanceErrorCounter++;
-        if (distanceErrorCounter >=10){
-        bDistanceLight = false;
-        view->setState(LIGHT_OFF);
+        distance_Chk_Cnt++;
+        if (distance_Chk_Cnt >= 10)
+        {
+            distanceChk = false;
+            lightState = LIGHT_OFF;
+            view->setState(lightState);
         }
     }
     else // Light on
     {
-        distanceErrorCounter = 0;
-        bDistanceLight = true;
+        distance_Chk_Cnt = 0;
+        distanceChk = true;
         view->setState(lightState);
     }
 }

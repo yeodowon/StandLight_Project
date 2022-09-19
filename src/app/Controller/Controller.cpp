@@ -1,10 +1,11 @@
 #include "Controller.h"
 
-Controller::Controller(Service *serv, ClockService *clockServ, TempHumidService *tempHumiService)
+Controller::Controller(Service *serv, ClockService *clockServ, TempHumidService *tempHumiServ, MotorService *motorServ)
 {
     this->service = serv;
     this->clockService = clockServ;
-    this->tempHumidService = tempHumiService;
+    this->tempHumidService = tempHumiServ;
+    this->motorService = motorServ;
     this->lightState = LIGHT_OFF;
 }
 
@@ -22,9 +23,30 @@ void Controller::updateEvent(std::string strBtn)
     {
         service->updateState("powerButton");
     }
+    
+    
     if (strBtn == "clockUpdate")
     {
         clockService->updateEvent();
+
+    }
+      if (strBtn == "timerButton")
+    {
+        clockService->updateClockState("timerButton");
+    }
+     if (strBtn == "runstopButton")
+    {
+        clockService->updateTimerState("runstopButton");
+    }
+     if (strBtn == "resetButton")
+    {
+        clockService->updateTimerState("resetButton");
+    }
+    
+    
+    if (strBtn == "motorButton")
+    {
+        motorService->updateMotor("motorButton");
     }
    
 }
@@ -37,4 +59,12 @@ void Controller::updateTempHumid(DHT_Data dhtData)
 void Controller::updateDistance(int distance)
 {
     service->updateDistance(distance);
+}
+
+void Controller::updateMotor(bool onoff)
+{
+    if(onoff)
+        motorService->updateMotor("true");
+    else
+        motorService->updateMotor("false");
 }

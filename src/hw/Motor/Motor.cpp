@@ -1,30 +1,17 @@
 #include "Motor.h"
 
 Motor::Motor(int pin)
-    : pinNumber(pin), motorState(Off)
 {
-    wiringPiSetup();
-    pinMode(pinNumber, OUTPUT);
-    softPwmStop(pinNumber);
+    this->pinNumber = pin;
+    softPwmCreate(this->pinNumber, 0, 100);
+    motorSet = false;
 }
 
 Motor::~Motor()
 {
-
 }
 
-void Motor::writePin(bool pinState)
+void Motor::PWM_Write(int speed)
 {
-    digitalWrite(pinNumber, (int)pinState);
-}
-
-void Motor::motorOn()
-{
-    softPwmCreate(pinNumber, 0, 100);
-    softPwmWrite(pinNumber, 70);
-}
-
-void Motor::motorOff()
-{
-    softPwmStop(pinNumber);
+    softPwmWrite(this->pinNumber, speed);
 }

@@ -14,6 +14,12 @@ DHT11::~DHT11()
 
 }
 
+ int DHT11::pre_RH = 0;
+ int DHT11::pre_RHDec = 0;
+ int DHT11::pre_Temp = 0;
+ int DHT11::pre_TempDec = 0;
+
+
 void DHT11::clearData()
 {
     for (int i=0; i<5; i++) {

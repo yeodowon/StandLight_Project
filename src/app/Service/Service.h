@@ -12,8 +12,8 @@ class Service
 private:
     int lightState;
     View *view;
-    bool bDistanceLight;
-    int distanceErrorCounter;
+    bool distanceChk;
+    int distance_Chk_Cnt;
 
 public:
     Service(View *viewer);

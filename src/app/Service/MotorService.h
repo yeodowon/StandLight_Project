@@ -1,16 +1,20 @@
 #ifndef MOTORSERVICE_H
 #define MOTORSERVICE_H
 
-#pragma once
+#include <string>
+#include "MotorView.h"
+
 
 class MotorService
 {
-public:
-    MotorService();
-    ~MotorService();
-
 private:
+    int motorButtonCnt;
+    MotorView *motorView;
+public:
+    MotorService(MotorView *motorView);
+    virtual ~MotorService();
 
+    void updateMotor(std::string strState);   
 };
 
 #endif

@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME}
     ./src/app/View/View.cpp
     ./src/app/View/ClockView.cpp
     ./src/app/View/TempHumidView.cpp
+    ./src/app/View/MotorView.cpp
 
     ./src/hw/Button/Button.cpp
     ./src/hw/Led/Led.cpp
